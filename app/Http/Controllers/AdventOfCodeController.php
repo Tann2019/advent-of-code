@@ -29,11 +29,20 @@ class AdventOfCodeController extends Controller
         sort($array1);
         sort($array2);
     
-        $solution = 0;
+        $solution1 = 0;
         for ($i = 0; $i < count($array1); $i++) {
-            $solution += abs($array1[$i] - $array2[$i]);
+            $solution1 += abs($array1[$i] - $array2[$i]);
+        }
+
+
+        $countArray2 = array_count_values($array2);
+        $solution2 = 0;
+        foreach ($array1 as $num) {
+            if (isset($countArray2[$num])) {
+                $solution2 += $num * $countArray2[$num];
+            }
         }
     
-        return view('advent-of-code.day1', compact('solution'));
+        return view('advent-of-code.day1', compact('solution1', 'solution2'));
     }
 }

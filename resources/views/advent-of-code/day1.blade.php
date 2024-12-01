@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Advent of Code - Day 1</h1>
-    <p>Solution: {{ $solution }}</p>
+    <p>Solution Part 1: {{ $solution1 }}</p>
+    <p>Solution Part 2: {{ $solution2 }}</p>
 </body>
 </html>
