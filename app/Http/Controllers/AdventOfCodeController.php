@@ -45,4 +45,86 @@ class AdventOfCodeController extends Controller
     
         return view('advent-of-code.day1', compact('solution1', 'solution2'));
     }
+
+    public function day2 ()
+    {
+        $solution = 0;
+        $input = file_get_contents(storage_path('app/advent-of-code/day2.txt'));
+    
+        $lines = explode("\n", trim($input));
+
+        foreach ($lines as $line) {
+            $line = explode(' ', trim($line));
+            $values[] = $line;
+        }
+
+        // dd($values);
+
+        foreach ($values as $value) {
+            $isIncreasing = true;
+            $isDecreasing = true;
+            $isValid = true;
+        
+            for ($i = 1; $i < count($value); $i++) {
+                $difference = $value[$i] - $value[$i - 1];
+                $absdifference = abs($difference);
+        
+                if ($absdifference < 1 || $absdifference > 3) {
+                    $isValid = false;
+                    break;
+                }
+        
+                if ($difference < 0) {
+                    $isIncreasing = false;
+                } elseif ($difference > 0) {
+                    $isDecreasing = false;
+                }
+            }
+        
+            if ($isValid && ($isIncreasing || $isDecreasing)) {
+                $solution++;
+                continue;
+            }
+            else {
+                //create a new array with the values that are not valid
+                $invalidValues[] = $value;
+                continue;
+            }
+        }
+        //dd($invalidValues);
+        foreach ($invalidValues as $invalidValue) {
+
+            for ($j = 0; $j < count($invalidValue); $j++) {
+                $temp = $invalidValue;
+                $temp = array_values(array_diff($temp, [$invalidValue[$j]]));
+                $isValid = true;
+                $isIncreasing = true;
+                $isDecreasing = true;
+        
+                for ($i = 1; $i < count($temp); $i++) {
+                    $difference = $temp[$i] - $temp[$i - 1];
+                    $absdifference = abs($difference);
+            
+                    if ($absdifference < 1 || $absdifference > 3) {
+                        $isValid = false;
+                        break;
+                    }
+                    if ($difference < 0) {
+                        $isIncreasing = false;
+                    } elseif ($difference > 0) {
+                        $isDecreasing = false;
+                    }
+                }
+        
+                if ($isValid && ($isIncreasing || $isDecreasing)) {
+                    $solution++;
+                    break;
+                }
+            }
+        }
+    
+        dd($solution);
+    
+        return view('advent-of-code.day2', compact('solution'));
+    }
 }
