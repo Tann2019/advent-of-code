@@ -118,4 +118,38 @@ class AdventOfCodeController extends Controller
     
         return view('advent-of-code.day2', compact('solution'));
     }
+
+    public function day3()
+    {
+        //part 1
+        $solution = 0;
+        $input = file_get_contents(storage_path('app/advent-of-code/day3.txt'));
+
+        preg_match_all('/(mul)\((\d+),(\d+)\)/', $input, $matches);
+
+        for ($i = 0; $i < count($matches[0]); $i++) {
+            $solution += $matches[2][$i] * $matches[3][$i];
+        }
+
+        //part 2
+        $solution = 0;
+
+        preg_match_all('/(do\(\))|don\'t\(\)|(mul)\((\d+),(\d+)\)/', $input, $matches, PREG_SET_ORDER);
+
+        $isValid = true;
+
+        foreach ($matches as $match) {
+            if (isset($match[0]) && $match[0] == 'do()') {
+                $isValid = true;
+                continue;
+            } elseif (isset($match[0]) && $match[0] == 'don\'t()') {
+                $isValid = false;
+            } elseif ($isValid) {
+                $solution += $match[3] * $match[4];
+            }
+        }
+
+        return view('advent-of-code.day3', compact('solution'));
+
+    }
 }
