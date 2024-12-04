@@ -8,6 +8,7 @@
 <body>
     <h1>Advent of Code - Day 3</h1>
     <p>Solution: {{ $solution }}</p>
-
+    <br/>
+    <p>Time taken to solve: {{ $executionTime }}ms</p>
 </body>
 </html>

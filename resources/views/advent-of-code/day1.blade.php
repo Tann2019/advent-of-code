@@ -9,5 +9,7 @@
     <h1>Advent of Code - Day 1</h1>
     <p>Solution Part 1: {{ $solution1 }}</p>
     <p>Solution Part 2: {{ $solution2 }}</p>
+    <br/>
+    <p>Time taken to solve: {{ $executionTime }}ms</p>
 </body>
 </html>

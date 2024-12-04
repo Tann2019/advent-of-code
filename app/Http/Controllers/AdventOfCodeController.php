@@ -13,6 +13,7 @@ class AdventOfCodeController extends Controller
 
     public function day1()
     {
+        $startTime = microtime(true);
         $input = file_get_contents(storage_path('app/advent-of-code/day1.txt'));
     
         $lines = explode("\n", trim($input));
@@ -42,12 +43,16 @@ class AdventOfCodeController extends Controller
                 $solution2 += $num * $countArray2[$num];
             }
         }
-    
-        return view('advent-of-code.day1', compact('solution1', 'solution2'));
+        $endTime = microtime(true);
+        $executionTime = $endTime - $startTime;
+        $executionTime = $executionTime * 1000;
+
+        return view('advent-of-code.day1', compact('solution1', 'solution2', 'executionTime'));
     }
 
     public function day2()
     {
+        $startTime = microtime(true);
         $solution = 0;
         $input = file_get_contents(storage_path('app/advent-of-code/day2.txt'));
     
@@ -115,12 +120,17 @@ class AdventOfCodeController extends Controller
                 }
             }
         }
-    
-        return view('advent-of-code.day2', compact('solution'));
+        $endTime = microtime(true);
+        $executionTime = $endTime - $startTime;
+        $executionTime = $executionTime * 1000;
+
+        return view('advent-of-code.day2', compact('solution', 'executionTime'));
     }
 
     public function day3()
     {
+        $startTime = microtime(true);
+
         //part 1
         $solution = 0;
         $input = file_get_contents(storage_path('app/advent-of-code/day3.txt'));
@@ -149,7 +159,10 @@ class AdventOfCodeController extends Controller
             }
         }
 
-        return view('advent-of-code.day3', compact('solution'));
+        $endTime = microtime(true);
+        $executionTime = $endTime - $startTime;
+        $executionTime = $executionTime * 1000;
 
+        return view('advent-of-code.day3', compact('solution', 'executionTime'));
     }
 }
